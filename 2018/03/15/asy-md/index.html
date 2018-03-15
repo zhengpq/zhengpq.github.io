@@ -53,7 +53,7 @@
 <link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="JavaScript," />
 
 
 
@@ -69,13 +69,20 @@
 
 
 
-<meta property="og:type" content="website">
-<meta property="og:title" content="zhengpq">
-<meta property="og:url" content="http://yoursite.com/index.html">
+<meta name="description" content="1 同步与异步简单来说，单线程对应就是同步，同步执行中每个动作只能等前面那个执行完后才会执行下一个，这样的话如果出现多个执行动作，就会出现时间先后，有可能中间某个动作占用的时间过于长的话就会造成后面的动作一直等待。但是如果是异步呢，多个人进行组装，每个人负责不同的部分，这样的话每个人完成自己的部分之后就可以u干别的事情，而不用去一直等待，这样的效率显然是更高的。 2 Event Loop讲到Jav">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="异步">
+<meta property="og:url" content="http://yoursite.com/2018/03/15/asy-md/index.html">
 <meta property="og:site_name" content="zhengpq">
+<meta property="og:description" content="1 同步与异步简单来说，单线程对应就是同步，同步执行中每个动作只能等前面那个执行完后才会执行下一个，这样的话如果出现多个执行动作，就会出现时间先后，有可能中间某个动作占用的时间过于长的话就会造成后面的动作一直等待。但是如果是异步呢，多个人进行组装，每个人负责不同的部分，这样的话每个人完成自己的部分之后就可以u干别的事情，而不用去一直等待，这样的效率显然是更高的。 2 Event Loop讲到Jav">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://static.zybuluo.com/Dreamingboy/bep0svacdq2w5o9w349190cu/bg2014100802.png">
+<meta property="og:updated_time" content="2018-03-15T07:01:52.287Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zhengpq">
+<meta name="twitter:title" content="异步">
+<meta name="twitter:description" content="1 同步与异步简单来说，单线程对应就是同步，同步执行中每个动作只能等前面那个执行完后才会执行下一个，这样的话如果出现多个执行动作，就会出现时间先后，有可能中间某个动作占用的时间过于长的话就会造成后面的动作一直等待。但是如果是异步呢，多个人进行组装，每个人负责不同的部分，这样的话每个人完成自己的部分之后就可以u干别的事情，而不用去一直等待，这样的效率显然是更高的。 2 Event Loop讲到Jav">
+<meta name="twitter:image" content="http://static.zybuluo.com/Dreamingboy/bep0svacdq2w5o9w349190cu/bg2014100802.png">
 
 
 
@@ -105,13 +112,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/03/15/asy-md/"/>
 
 
 
 
 
-  <title>zhengpq</title>
+  <title>异步 | zhengpq</title>
   
 
 
@@ -130,8 +137,7 @@
     
   
 
-  <div class="container sidebar-position-left 
-  page-home">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -268,9 +274,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-  <section id="posts" class="posts-expand">
+
+  <div id="posts" class="posts-expand">
     
-      
 
   
 
@@ -300,9 +306,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/15/asy-md/" itemprop="url">异步</a></h1>
+          <h1 class="post-title" itemprop="name headline">异步</h1>
         
 
         <div class="post-meta">
@@ -374,9 +378,7 @@
       
 
       
-        
-          
-            <h2 id="1-同步与异步"><a href="#1-同步与异步" class="headerlink" title="1 同步与异步"></a>1 同步与异步</h2><p>简单来说，单线程对应就是<strong>同步</strong>，同步执行中每个动作只能等前面那个执行完后才会执行下一个，这样的话如果出现多个执行动作，就会出现时间先后，有可能中间某个动作占用的时间过于长的话就会造成后面的动作一直等待。但是如果是异步呢，多个人进行组装，每个人负责不同的部分，这样的话每个人完成自己的部分之后就可以u干别的事情，而不用去一直等待，这样的效率显然是更高的。</p>
+        <h2 id="1-同步与异步"><a href="#1-同步与异步" class="headerlink" title="1 同步与异步"></a>1 同步与异步</h2><p>简单来说，单线程对应就是<strong>同步</strong>，同步执行中每个动作只能等前面那个执行完后才会执行下一个，这样的话如果出现多个执行动作，就会出现时间先后，有可能中间某个动作占用的时间过于长的话就会造成后面的动作一直等待。但是如果是异步呢，多个人进行组装，每个人负责不同的部分，这样的话每个人完成自己的部分之后就可以u干别的事情，而不用去一直等待，这样的效率显然是更高的。</p>
 <h2 id="2-Event-Loop"><a href="#2-Event-Loop" class="headerlink" title="2 Event Loop"></a>2 Event Loop</h2><p>讲到JavaScript的异步的话肯定要讲到Event Loop，这是JavaScript异步的精髓。首先介绍一下一个很经典的视频（需要翻墙，国内可能也有，需要读者自己去找一下）：<a href="https://www.youtube.com/watch?v=8aGhZQkoFbQ" target="_blank" rel="external">What the heck is the event loop anyway?</a></p>
 <p>这里借用阮一峰老师的博客上面的图片：</p>
 <div align="center"><img src="http://static.zybuluo.com/Dreamingboy/bep0svacdq2w5o9w349190cu/bg2014100802.png" width="400"></div>
@@ -440,8 +442,6 @@
 </li>
 </ul>
 
-          
-        
       
     </div>
     
@@ -456,489 +456,36 @@
 
     <footer class="post-footer">
       
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/08/flex/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zhengpq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zhengpq">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/08/flex/" itemprop="url">flex</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-08T22:14:35+08:00">
-                2018-03-08
-              </time>
-            
-
-            
-
-            
-          </span>
-
+        <div class="post-tags">
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/html-css/" itemprop="url" rel="index">
-                    <span itemprop="name">html&&css</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
+            <a href="/tags/JavaScript/" rel="tag"># JavaScript</a>
           
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>因为老是记不住flex的API对应的样式，所以这篇文章主要就是让自己平时用的时候可以快速查阅，节约时间。</p>
-<p>flex布局是CSS3中提出的概念，其优点在于能够使用很少的样式实现比较复杂的布局，相比CSS2中的使用display+position+float的实现方式，类似于高铁和绿皮火车之间的差别。</p>
-<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a><strong>语法</strong></h2><p>块状元素实现flex布局：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">div&#123;display:flex;&#125;</div></pre></td></tr></table></figure></p>
-<p>行内元素实现flex布局：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">div&#123;display:inline-flex;&#125;</div></pre></td></tr></table></figure></p>
-<h2 id="基本概念"><a href="#基本概念" class="headerlink" title="基本概念"></a><strong>基本概念</strong></h2><p>容器flex化之后，其内部解构如下（<strong>这里借用一下阮老师的图</strong>）：</p>
-<p><img src="http://static.zybuluo.com/Dreamingboy/52n9lnghbocua1x01sqhnat2/image.png" alt="image.png-29kB"></p>
-<p>flex item：容器内部的元素<br>main axis：主轴，内部元素默认沿着主轴排列<br>main start：主轴开始的地方<br>main end：主轴结束的地方<br>cross axis：交叉轴<br>cross start：交叉轴开始的地方<br>cross end：交叉轴结束的地方<br>main size：单个内部元素在主轴方向上占据的长度<br>cross size：单个内部元素在交叉轴方向上占据的长度</p>
-<h2 id="属性及其值"><a href="#属性及其值" class="headerlink" title="属性及其值"></a><strong>属性及其值</strong></h2><ul>
-<li><code>flex-direction:row | row-reverse | column | column-reverse</code></li>
-<li><code>flex-wrap:nowrap | wrap | wrap-reverse</code></li>
-<li><code>flex-flow:&lt;flex-direction | &lt;flex-wrap&gt;</code></li>
-<li><code>justify-content:flex-start | flex-end | cneter | space-between | space-around</code></li>
-<li><code>align-items: flex-start | flex-end | center | baseline | stretch</code></li>
-<li><code>align-content: flex-start | flex-end | center | space-between | space-around | stretch;</code></li>
-</ul>
-<h3 id="flex-direction"><a href="#flex-direction" class="headerlink" title="flex-direction"></a><strong>flex-direction</strong></h3><p>定义主轴的方向</p>
-<ul>
-<li>row：默认，主轴的方向为水平，起点在左端</li>
-<li>row-reverse：主轴为水平，起点在右端</li>
-<li>column：主轴为竖直方向，起点在顶端</li>
-<li>column-reverse：主轴为竖直方向，起点在底端</li>
-</ul>
-<p>对flex盒子的内部元素进行width的设置时，实际上相当于是给元素设置了一个<code>max-width</code>，如下面例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">#flex&#123;</div><div class="line">            width: 800px;</div><div class="line">            height: 400px;</div><div class="line">            display: flex;</div><div class="line">            background-color: blue;</div><div class="line">        &#125;</div><div class="line">        #flex div&#123;</div><div class="line">            background-color: red;</div><div class="line">            width: 100px;</div><div class="line">            height: 100px;</div><div class="line">            margin-right: 10px;</div><div class="line">        &#125;</div></pre></td></tr></table></figure></p>
-<p>得到的效果如下：<br><img src="http://static.zybuluo.com/Dreamingboy/figy1ko3m8gporg4qjfi48at/image.png" alt="image.png-3.2kB"></p>
-<p>明显此时每个内部元素的大小是没有100px的，将<code>width: 100px;</code>设置为<code>min-width: 100px;</code>后，得到下面的结果：</p>
-<p><img src="http://static.zybuluo.com/Dreamingboy/i0qofmjig8gq2ptq7u9uxyht/image.png" alt="image.png-6.5kB"></p>
-<p>这次盒子全部溢出了。</p>
-<h3 id="flex-wrap"><a href="#flex-wrap" class="headerlink" title="flex-wrap"></a><strong>flex-wrap</strong></h3><p>定义是否允许换行。</p>
-<ul>
-<li>nowrap：默认，不换行，如上面所示，如果内部的元素全部width加起来大于flex盒子的width，会将内部元素的width减小以适应flex盒子的width</li>
-<li>wrap：允许换行</li>
-<li>wrap-reverse：换行，但是第一行变成在下方</li>
-</ul>
-<p>如下面的效果：</p>
-<p><img src="http://static.zybuluo.com/Dreamingboy/q88g2gl27vxgdhu5i66jzdil/image.png" alt="image.png-12kB"></p>
-<h3 id="flex-flow"><a href="#flex-flow" class="headerlink" title="flex-flow"></a><strong>flex-flow</strong></h3><p>是<code>flex-direction</code>和<code>flex-wrap</code>的简写形式</p>
-<h3 id="justify-content"><a href="#justify-content" class="headerlink" title="justify-content"></a><strong>justify-content</strong></h3><p>定义内部元素在主轴上的对齐方式</p>
-<ul>
-<li>flex-start：跟主轴起始点对齐</li>
-<li>flex-end：跟主轴结束点对齐</li>
-<li>center：居中</li>
-<li>space-between：两端对齐，内部元素之间的间隔相等</li>
-<li>space-around：每个内部元素两侧的间隔相等</li>
-</ul>
-<h3 id="align-items"><a href="#align-items" class="headerlink" title="align-items"></a><strong>align-items</strong></h3><p>定义内部元素在交叉轴上如何对齐</p>
-<ul>
-<li>flex-star：跟交叉轴的起点对齐</li>
-<li>flex-end：跟交叉轴的终点对齐</li>
-<li>center：交叉轴的中心点对齐</li>
-<li>baseline：内部元素的第一行文字对齐</li>
-<li>stretch：如果内部元素没有设置高度，将占满整个容器的高度</li>
-</ul>
-<h3 id="align-content"><a href="#align-content" class="headerlink" title="align-content"></a><strong>align-content</strong></h3><p>定义多根轴线的对齐方式，如果只有一个轴线，那么属性不起作用</p>
-<ul>
-<li>flex-start：与交叉轴的起点对齐</li>
-<li>flex-end：与交叉轴的终点对齐</li>
-<li>center：与交叉轴的中点对齐</li>
-<li>space-between：与交叉轴两端对齐，轴线之间的间隔平均分布</li>
-<li>space-between：每根轴线两侧的间隔相等，</li>
-<li>stretch：轴线平均分布在交叉轴上面</li>
-</ul>
-<h2 id="内部元素的属性"><a href="#内部元素的属性" class="headerlink" title="内部元素的属性"></a><strong>内部元素的属性</strong></h2><h3 id="order"><a href="#order" class="headerlink" title="order"></a><strong>order</strong></h3><p>定义内部元素的排列顺序，默认是0，数值越小越靠前。</p>
-<h3 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a><strong>flex-grow</strong></h3><p>定义内部元素被放大的比例，默认是0<br>如果所有内部元素被放大的比例都是1，而且还有剩余空间的话，那么所有内部元素都会平分剩余的空间。<strong>但是如果设置放大比例后容器的width不够的话，就不会进行元素的放大，而是会将剩余的空间按照放大的倍数分配给内部元素（如果有的话）</strong></p>
-<h3 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a><strong>flex-shrink</strong></h3><p>定义内部元素缩小的比例，如果空间不够的话，就会缩小内部元素<br><strong>如果有一个元素的缩小比例为0，而其他的为0以外的数字，那前者在空间不足的时候不会缩小</strong></p>
-<h3 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a><strong>flex-basis</strong></h3><p>定义在分配多余空间之前，内部元素的main size</p>
-<h3 id="flex"><a href="#flex" class="headerlink" title="flex"></a><strong>flex</strong></h3><p>flex-grow、flex-shrink和flex-basis的简写</p>
-<h3 id="align-self"><a href="#align-self" class="headerlink" title="align-self"></a><strong>align-self</strong></h3><p>允许单个元素与其他项目有不一样的对齐方式，可以覆盖align-item属性</p>
-<ul>
-<li>auto</li>
-<li>flex-start</li>
-<li>flex-end</li>
-<li>center</li>
-<li>baseline</li>
-<li>stretch</li>
-</ul>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
       
 
       
       
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
       
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/08/html和css知识点总结/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zhengpq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zhengpq">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/03/08/html和css知识点总结/" itemprop="url">html和css知识点总结</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
             
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-08T14:19:26+08:00">
-                2018-03-08
-              </time>
+              <a href="/2018/03/08/flex/" rel="next" title="flex">
+                <i class="fa fa-chevron-left"></i> flex
+              </a>
             
+          </div>
 
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
             
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/html-css/" itemprop="url" rel="index">
-                    <span itemprop="name">html&&css</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
+          </div>
         </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
       
 
       
-        
-          
-            <p>这篇文章是对HTML和CSS一些知识点的总结，希望对大家有所帮助</p>
-<h2 id="1-HTML"><a href="#1-HTML" class="headerlink" title="1 HTML"></a><strong>1 HTML</strong></h2><h3 id="1-1Doctype"><a href="#1-1Doctype" class="headerlink" title="1.1Doctype"></a><strong>1.1Doctype</strong></h3><p>1、Doctype<br>作用：声明文档类型，告知浏览器使用哪种方式对文档进行解析，</p>
-<p>HTML 4.01各种Doctype声明格式以及区别：</p>
-<ul>
-<li>Strict：<code>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01//EN&quot; &quot;http://www.w3.org/TR/html4/strict.dtd&quot;&gt;</code><br><strong>包含所有的HTML元素和属性，但是不包含过时的元素</strong></li>
-<li>Transitional：<code>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Transitional//EN&quot; &quot;http://www.w3.org/TR/html4/loose.dtd&quot;&gt;</code><br><strong>包含所有的HTML元素和属性，同时包含过时的元素，框架集不允许</strong></li>
-<li>Frameset：<code>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.01 Frameset//EN&quot; &quot;http://www.w3.org/TR/html4/frameset.dtd&quot;&gt;</code><br><strong>包含所有的HTML元素和属性，包含过时元素，框架集允许</strong></li>
-</ul>
-<p>HTML5Doctype的声明：<code>&lt;!DOCTYPE HTML&gt;</code><br>HTML5没有基于SGML（<a href="https://zh.wikipedia.org/wiki/SGML" target="_blank" rel="external">标准通用标记语言，超文本格式的最高标准</a>）</p>
-<h3 id="1-2-Meta"><a href="#1-2-Meta" class="headerlink" title="1.2 Meta"></a><strong>1.2 Meta</strong></h3><p>Meta包含在head元素中，能够对文档进行声明，比如SEO,文档的字符编码</p>
-<p>具体作用：</p>
-<ul>
-<li>声明文档使用的字符编码：<code>&lt;meta charset=&#39;utf-8&#39;&gt;</code></li>
-<li><p>声明文档的兼容模式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=edge&quot; /&gt; 指示IE以目前可用的最高模式显示内容</div><div class="line">&lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;IE=Emulate IE7&quot; /&gt;指示IE使用 &lt;!DOCTYPE&gt; 指令确定如何呈现内容。标准模式指令以IE7 标准模式显示，而 Quirks 模式指令以 IE5 模式显示。</div></pre></td></tr></table></figure>
-</li>
-<li><p>SEO优化</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&lt;meta name=&quot;description&quot; content=&quot;不超过150个字符&quot; /&gt;页面描述</div><div class="line">&lt;meta name=&quot;keywords&quot; content=&quot;关键字&quot;/&gt;页面关键词</div><div class="line">&lt;meta name=&quot;author&quot; content=&quot;魔法小栈&quot; /&gt;定义网页作者</div><div class="line">&lt;meta name=&quot;robots&quot; content=&quot;index,follow&quot; /&gt;定义网页搜索引擎索引方式，robotterms是一组使用英文逗号「,」分割的值，通常有如下几种取值：none，noindex，nofollow，all，index和follow。</div></pre></td></tr></table></figure>
-</li>
-<li><p>移动端添加viewport</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;meta name =&quot;viewport&quot; content =&quot;width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no&quot;&gt;</div><div class="line">经常用在响应式中:</div><div class="line">width：可视区域的宽度，device-width：设备屏幕的宽度，可以自适应多端设备</div><div class="line">initial-scale  初始缩放比例</div><div class="line">maximum-scale  最大缩放比例</div><div class="line">minimum-scale  最小缩放比例</div><div class="line">user-scalable  是否允许用户缩放(yes/no)</div></pre></td></tr></table></figure>
-</li>
-<li><p>页面出现很多的http请求时自动转换成https：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;upgrade-insecure-requests&quot; /&gt;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<h3 id="1-3行内元素、块级元素以及空元素的区别"><a href="#1-3行内元素、块级元素以及空元素的区别" class="headerlink" title="1.3行内元素、块级元素以及空元素的区别"></a><strong>1.3行内元素、块级元素以及空元素的区别</strong></h3><p>1、行内元素是在同一行排列直到宽度不够转入下行，块级元素默认换行排列<br>2、行内元素没有办法设置width、height、padding和margin，块状元素可以<br>3、vertical-align只能作用在行内元素不能作用在块级元素<br>4、<code>display:block</code>：字面上将一个元素设置为块级的<br>5、<code>display:inline-block</code>：字面上将一个元素设置为行内元素，<strong>但是这种行内元素能够设置width、height、margin和padding</strong></p>
-<h3 id="1-4页面导入样式方式"><a href="#1-4页面导入样式方式" class="headerlink" title="1.4页面导入样式方式"></a><strong>1.4页面导入样式方式</strong></h3><p>1、在head插入<code>&lt;style&gt;&lt;/style&gt;</code>标签<br>2、嵌入<code>style=&quot;&quot;</code><br>3、link引入文件<br>4、@import中引入另外一个CSS文件（存在兼容性问题，只能在IE5以上才会兼容）</p>
-<h3 id="1-5浏览器内核"><a href="#1-5浏览器内核" class="headerlink" title="1.5浏览器内核"></a><strong>1.5浏览器内核</strong></h3><ul>
-<li>Trident内核：IE、360</li>
-<li>Gecko：火狐</li>
-<li>Presto：Opera</li>
-<li>Webkit：Chrome、Safari</li>
-</ul>
-<h2 id="2-CSS"><a href="#2-CSS" class="headerlink" title="2 CSS"></a><strong>2 CSS</strong></h2><h3 id="2-1盒子模型"><a href="#2-1盒子模型" class="headerlink" title="2.1盒子模型"></a><strong>2.1盒子模型</strong></h3><p>W3C制定的标准的盒子模型如下图：<br><img src="http://static.zybuluo.com/Dreamingboy/k1wdxmd3zkfqappzn1sptk3e/image.png" alt="image.png-194kB"></p>
-<p> IE早期版本的盒子模型：<br> <img src="http://static.zybuluo.com/Dreamingboy/3rs1nf0s5lfq26hni0gvbjyy/image.png" alt="image.png-145.8kB"></p>
-<p>二者最大的区别在于Content区域，后者的width和height都包括了padding和border</p>
-<p> 对盒子模型的设置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">box-sizing:content-box;(默认）//页面使用标准模式进行解析</div><div class="line">box-sizing:border-box;//使用怪异模式</div><div class="line">box-sizing:inherit;//页面从父元素继承box-sizing的值</div></pre></td></tr></table></figure></p>
-<h3 id="2-2选择器"><a href="#2-2选择器" class="headerlink" title="2.2选择器"></a><strong>2.2选择器</strong></h3><p>CSS中除了平时经常用的选择器如id、类和父子选择器外，还有一些不经常用的选择器：</p>
-<ul>
-<li>相邻选择器：<code>ul+p</code>，选择和ul同辈的<strong>后面</strong>的第一个p元素</li>
-<li>属性选择器：<code>li[name=&#39;bob&#39;]</code>，选择所有name属性为bob的li元素，name属性需要自己添加</li>
-<li>a系列的伪类选择器：a:link，a:visited，a:hover，a:acitve，分别代表未访问的链接、已经访问的链接、鼠标悬停时的链接、被点击的链接</li>
-</ul>
-<h3 id="2-3居中"><a href="#2-3居中" class="headerlink" title="2.3居中"></a><strong>2.3居中</strong></h3><p>1、水平居中：给盒子设置一个确定的width，然后添加margin:0 auto<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">#center&#123;</div><div class="line">            width: 300px;</div><div class="line">            margin:0 auto;</div><div class="line">        &#125;</div></pre></td></tr></table></figure></p>
-<p>2、绝对定位的div居中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">#absolute&#123;</div><div class="line">            position: absolute;</div><div class="line">            width:300px;</div><div class="line">            margin-left: -150px;</div><div class="line">            left:50%;</div><div class="line">        &#125;</div></pre></td></tr></table></figure></p>
-<p>3、绝对垂直居中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line">//缺点：元素的宽高必须是具体值或者是百分比</div><div class="line">#absolute-center&#123;</div><div class="line">            position: absolute;</div><div class="line">            width: 100px;</div><div class="line">            height:100px;</div><div class="line">            top: 0;</div><div class="line">            left:0;</div><div class="line">            right: 0;</div><div class="line">            bottom: 0;</div><div class="line">            margin: auto;</div><div class="line">            background-color: black;</div><div class="line">        &#125;</div><div class="line"> //利用translate是百分比是相对于自身的width和height      </div><div class="line">#absolute-center&#123;</div><div class="line">            position: absolute;</div><div class="line">            width: 10%;</div><div class="line">            height:10%;</div><div class="line">            top: 50%;</div><div class="line">            left:50%;</div><div class="line">            transform: translate(-50%,-50%);</div><div class="line">        &#125;</div><div class="line"></div><div class="line">//使用flex布局</div><div class="line">.container &#123;</div><div class="line">    display: flex;</div><div class="line">    align-items: center;        /* 垂直居中 */</div><div class="line">    justify-content: center;    /* 水平居中 */</div><div class="line"></div><div class="line"> &#125;</div><div class="line"> .container div &#123;</div><div class="line">    width: 100px;</div><div class="line">    height: 100px;</div><div class="line">    background-color: pink;     /* 方便看效果 */</div><div class="line"> &#125;</div></pre></td></tr></table></figure></p>
-<h3 id="2-4清除浮动"><a href="#2-4清除浮动" class="headerlink" title="2.4清除浮动"></a><strong>2.4清除浮动</strong></h3><p>清除浮动的原因是在使用浮动之后，元素会脱离文档流，类似于将浮动的元素抽离出来，浮动在上方，而文档在下方，分成两层。这样就会造成塌陷。最经典的例子就是在圣杯布局里面。</p>
-<p>先看下面这圣杯布局的代码以及效果<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div></pre></td><td class="code"><pre><div class="line">//html</div><div class="line">&lt;body&gt;</div><div class="line">&lt;div id=&quot;header&quot;&gt;#header&lt;/div&gt;</div><div class="line"></div><div class="line">&lt;div id=&quot;container&quot;&gt;</div><div class="line">    &lt;div id=&quot;center&quot; class=&quot;column&quot;&gt;#center&lt;/div&gt;</div><div class="line">    &lt;div id=&quot;left&quot; class=&quot;column&quot;&gt;#left&lt;/div&gt;</div><div class="line">    &lt;div id=&quot;right&quot; class=&quot;column&quot;&gt;#right&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line"></div><div class="line">&lt;div id=&quot;footer&quot;&gt;#footer&lt;/div&gt;</div><div class="line">&lt;/body&gt;</div><div class="line"></div><div class="line">//css</div><div class="line">body &#123;</div><div class="line">            min-width: 550px;      /* 2x LC width + RC width */</div><div class="line">        &#125;</div><div class="line">        #container&#123;</div><div class="line">            padding-left: 200px;</div><div class="line">            padding-right: 200px;</div><div class="line">            background-color: red;</div><div class="line">        &#125;</div><div class="line">        .column&#123;</div><div class="line">            float: left;</div><div class="line">            height: 200px;</div><div class="line">        &#125;</div><div class="line">        #center&#123;</div><div class="line">            width: 100%;</div><div class="line">            background-color: aquamarine;</div><div class="line">        &#125;</div><div class="line">        #left,#right&#123;</div><div class="line">            position: relative;</div><div class="line">            width: 200px;</div><div class="line">        &#125;</div><div class="line">        #left&#123;</div><div class="line">            margin-left: -100%;</div><div class="line">            right: 200px;</div><div class="line">            background-color: blue;</div><div class="line">        &#125;</div><div class="line">        #right&#123;</div><div class="line">            margin-right: -200px;</div><div class="line">            background-color: #00B7FF;</div><div class="line">        &#125;</div><div class="line">        #footer &#123;</div><div class="line">            clear: both;//清除浮动</div><div class="line">        &#125;</div><div class="line">        #header,</div><div class="line">        #footer &#123;</div><div class="line">            background-color: #c9c9c9;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        /*** IE6 Fix ***/</div><div class="line">        * html #left &#123;</div><div class="line">            left: 150px;/* RC width */</div><div class="line">        &#125;</div></pre></td></tr></table></figure></p>
-<p>效果图：<br><img src="http://static.zybuluo.com/Dreamingboy/4wczr5re003ms5k4dhowhp5q/image.png" alt="image.png-10.7kB"></p>
-<p>此时footer是在最底下的。<br>然后去掉这段代码：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">#footer &#123;</div><div class="line">            clear: both;//清除浮动</div><div class="line">        &#125;</div></pre></td></tr></table></figure></p>
-<p>再看效果如下：<br><img src="http://static.zybuluo.com/Dreamingboy/c3ysi6g6cmng44o3xw9yg35f/image.png" alt="image.png-11.2kB"></p>
-<p>很明显，footer跑到header下面了，很好说明了使用float后元素被抽离的本质。</p>
-<p>那么，如何清除浮动呢？具体有以下几种方式:</p>
-<ul>
-<li>父级元素设置高度<br>以上面的圣杯布局为例，给container设置高度，然后就可以看见footer跑到下面来了，<strong>原理就是因为元素浮动后脱离文档流，在没有给父盒子设置高度的情况下，父盒子里面没有包含东西，所以默认的高度是0，设置之后就相当于给父盒子填充了内容，不过缺点是高度限制住了</strong></li>
-<li><p>使用<code>clear:both</code>，在浮动元素后面添加一个占位元素，然后使用clear属性。以上面的为例：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">//html</div><div class="line">&lt;div id=&quot;container&quot;&gt;</div><div class="line">    &lt;div id=&quot;center&quot; class=&quot;column&quot;&gt;#center&lt;/div&gt;</div><div class="line">    &lt;div id=&quot;left&quot; class=&quot;column&quot;&gt;#left&lt;/div&gt;</div><div class="line">    &lt;div id=&quot;right&quot; class=&quot;column&quot;&gt;#right&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;div id=&apos;clear&apos;&gt;&lt;/div&gt;//占位元素</div><div class="line"></div><div class="line">&lt;div id=&quot;footer&quot;&gt;#footer&lt;/div&gt;</div><div class="line"></div><div class="line">//css</div><div class="line">#clear&#123;</div><div class="line">            height:0;</div><div class="line">            clear: both;</div><div class="line">        &#125;</div></pre></td></tr></table></figure>
-</li>
-<li><p>使用伪类，原理也是使用占位元素，还是以圣杯布局为例，在父元素container使用伪类</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">#container:after&#123;</div><div class="line">           content: &apos;&apos;;</div><div class="line">           height:0;</div><div class="line">           clear: both;</div><div class="line">       &#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>###<strong>2.5圣杯布局</strong><br>圣杯布局是经典的三栏布局，是前端入门必须掌握的一个布局方式，但是，网上有很多博客都有讲到如何实现圣杯布局，但是在原理上面却没有深究，其中两个关键点是左边的盒子为什么要加上<code>margin-left: -100%;</code>，这个属性而右边的盒子为什么要加上<code>margin-right: -200px;（假设盒子是200px宽）</code>这个属性。具体的如何实现圣杯布局的代码和过程可以参考这篇文章，作者讲得很详细：<a href="https://segmentfault.com/a/1190000004524159" target="_blank" rel="external">关于圣杯布局</a></p>
-<p>下面我就来讲讲我对其中原理的理解，具体的圣杯布局的代码可以参考上面或者是推荐的文章。</p>
-<p>因为center、left和right三者都用了<code>float:left</code>，所以，如果在container的width足够大的情况下，三者是如下图排列的：<br><img src="http://static.zybuluo.com/Dreamingboy/iio7j4ieui2kbegtk3er18ut/image.png" alt="image.png-12.2kB"></p>
-<p>所以，如果此时想让left跑到center的左边，就得用<code>margin-left:100%</code>，<code>margin-left:100%</code>百分比是相对于父元素，之后三者的排列关系如下：</p>
-<p><img src="http://static.zybuluo.com/Dreamingboy/9qw37at8ipend1tswm1krbhn/image.png" alt="image.png-11.1kB"></p>
-<p>此时left是覆盖在center上面的，然后再使用<code>position:relative</code>进行位置的调整，然后对于右边的盒子呢，不要忘记上面是我们假设父盒子width足够大的情况下，但是实际情况是父盒子设置了padding，所以实际情况下三者的位置是如下面的：<br><img src="http://static.zybuluo.com/Dreamingboy/04w8qua8cu6bmaqahoqrb3ga/image.png" alt="image.png-14.2kB"></p>
-<p>因为宽度不够，原本的left和right都被挤到下面来了，但是left在设置了<code>margin-left</code>转移到上面去了，right就跑到最左边来了，结合上一个图，可以知道原本上图right所在的位置是实际情况中的container的padding，那么如果想让right盒子跑到右边，那么就设置<code>margin-right</code>等于他自身就可以了。</p>
-<h3 id="2-6-SEO前端实现"><a href="#2-6-SEO前端实现" class="headerlink" title="2.6 SEO前端实现"></a><strong>2.6 SEO前端实现</strong></h3><p>SEO优化的技巧：<br>1、使用好meta标签</p>
-<ul>
-<li>meta的keywords，说明网站的关键词。具体代码如下：<code>&lt;meta name=&quot;Keywords&quot;content=&quot;信息参数&quot;/&gt;</code></li>
-<li>meta的description，说明网站的主要内容和概况，代码：<code>&lt;meta name=&quot;Description&quot;content=&quot;信息参数&quot;/&gt;</code></li>
-<li>meta的robots，告诉搜素引擎抓取哪些页面，代码：<code>&lt;meta name=&quot;Robots&quot; content=&quot;all&quot;/&gt;</code>all代表文件可以被检索，同时页面上的链接可以被查询<br>具体的Robots的参数如下：</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>参数</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>all</td>
-<td>文件可以被检索，且页面上的链接可以被查询</td>
-</tr>
-<tr>
-<td>none</td>
-<td>文件不被检索，页面上的链接不可以查询</td>
-</tr>
-<tr>
-<td>index</td>
-<td>文件被检索</td>
-</tr>
-<tr>
-<td>follow</td>
-<td>页面上的链接可以被查询</td>
-</tr>
-<tr>
-<td>noindex</td>
-<td>问价将不被检索，但页面上的链接可以被查询</td>
-</tr>
-<tr>
-<td>nofollow</td>
-<td>问价将被检索，页面上的链接不可以被检索</td>
-</tr>
-</tbody>
-</table>
-<p>2、其他的优化SEO的技巧：</p>
-<ul>
-<li>每个页面只出现一个h1</li>
-<li>图片加alt，图片大小做声明，如果图片大小不定义的话会造成页面重新渲染，小图标使用雪碧图，如果能够使用CSS，不使用图片，减少请求次数。</li>
-<li>尽量使用iframe框架，重要内容不要放在iframe中</li>
-<li>尽量给a标签加上title</li>
-</ul>
-<p><strong>参考文章</strong><br><a href="https://github.com/markyun/My-blog/tree/master/Front-end-Developer-Questions/Questions-and-Answers" target="_blank" rel="external">前端开发面试题</a><br><a href="https://segmentfault.com/a/1190000010278778" target="_blank" rel="external">SEO优化技巧</a></p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -948,130 +495,11 @@
   </article>
 
 
-    
-      
 
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2017/09/26/Hello-World/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="zhengpq">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/avatar.jpg">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="zhengpq">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2017/09/26/Hello-World/" itemprop="url">Hello World</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-09-26T23:55:27+08:00">
-                2017-09-26
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <p>Hello World!</p>
-
-          
-        
+    <div class="post-spread">
       
     </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
   </div>
-  
-  
-  
-  </article>
-
-
-    
-  </section>
-
-  
 
 
           </div>
@@ -1079,6 +507,10 @@
 
 
           
+  <div class="comments" id="comments">
+    
+  </div>
+
 
         </div>
         
@@ -1099,8 +531,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           
             <img class="site-author-image" itemprop="image"
@@ -1179,6 +620,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-同步与异步"><span class="nav-number">1.</span> <span class="nav-text">1 同步与异步</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Event-Loop"><span class="nav-number">2.</span> <span class="nav-text">2 Event Loop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-stack"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 stack</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-WebAPI"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 WebAPI</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-callback-queue"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 callback queue</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-Event-Loop运行过程"><span class="nav-number">2.4.</span> <span class="nav-text">2.4 Event Loop运行过程</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-实现异步"><span class="nav-number">3.</span> <span class="nav-text">3 实现异步</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-回调函数模式"><span class="nav-number">3.1.</span> <span class="nav-text">3.1 回调函数模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-Promise"><span class="nav-number">3.2.</span> <span class="nav-text">3.2 Promise</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-Generator实现异步"><span class="nav-number">3.3.</span> <span class="nav-text">3.3 Generator实现异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-4-async-await"><span class="nav-number">3.4.</span> <span class="nav-text">3.4 async/await</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
