@@ -79,7 +79,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://static.zybuluo.com/Dreamingboy/1p0wef8z0nokuri01mqrz1nm/image.png">
 <meta property="og:image" content="http://static.zybuluo.com/Dreamingboy/gtuf7a1w62hphl0gy5hiwdxf/image.png">
-<meta property="og:updated_time" content="2018-03-15T07:11:06.304Z">
+<meta property="og:updated_time" content="2018-03-15T07:14:21.848Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浏览器端的EventLoop和node的EventLoop的区别">
 <meta name="twitter:description" content="最近在学习node，看了一些关于node的eventLoop的文章之后得出自己的一些结论，跟大家分享一下，如果有错误的地方，也希望大家指出，多多指教！ 说到JavaScript的异步，绕不开的就是EventLoop，这是JavaScript实现异步的基础，而浏览器端的EventLoop和node的又有很大的不同，下面，就让我们来探讨一下他们之间的区别。 1浏览器EventLoop1.1浏览器端异步">
@@ -401,8 +401,7 @@
 <p>这就是浏览器端的EventLoop的整个执行过程，这个过程相对来说还是比较简单易懂的。</p>
 <h2 id="2-node的EventLoop"><a href="#2-node的EventLoop" class="headerlink" title="2 node的EventLoop"></a><strong>2 node的EventLoop</strong></h2><h3 id="2-1-基本模型"><a href="#2-1-基本模型" class="headerlink" title="2.1 基本模型"></a><strong>2.1 基本模型</strong></h3><p><img src="http://static.zybuluo.com/Dreamingboy/gtuf7a1w62hphl0gy5hiwdxf/image.png" alt="image.png-75.8kB"></p>
 <p> 我们可以看到，node的EventLoop的模型要比浏览器端的复杂很多，下面让我们来一步步进行讲解。</p>
-<p>####<strong>2.1.1 phase</strong></p>
-<p> 上图中的每一个矩形代表的是事件队列的每一个阶段（官网上叫做“phase”），他们具体负责的工作为（附上官方文档的解释）：</p>
+<h4 id="2-1-1-phase"><a href="#2-1-1-phase" class="headerlink" title="2.1.1 phase"></a><strong>2.1.1 phase</strong></h4><p> 上图中的每一个矩形代表的是事件队列的每一个阶段（官网上叫做“phase”），他们具体负责的工作为（附上官方文档的解释）：</p>
 <ul>
 <li><p>Timers：执行setTimeout()和setInterval()绑定的回调函数</p>
 <blockquote>
@@ -629,7 +628,7 @@
             
             
             <div class="site-state-item site-state-tags">
-              <a href="/introduction/index.html">
+              <a href="/personal/index.html">
                 <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
@@ -679,7 +678,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1浏览器EventLoop"><span class="nav-number">1.</span> <span class="nav-text">1浏览器EventLoop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1浏览器端异步"><span class="nav-number">1.1.</span> <span class="nav-text">1.1浏览器端异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2浏览器端的EventLoop的基本模型"><span class="nav-number">1.2.</span> <span class="nav-text">1.2浏览器端的EventLoop的基本模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-node的EventLoop"><span class="nav-number">2.</span> <span class="nav-text">2 node的EventLoop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-基本模型"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 基本模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-timers"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.2 timers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-poll"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.3 poll</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-setTimeout和setImmediate"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 setTimeout和setImmediate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-process-nextTick-和setImmediate"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 process.nextTick()和setImmediate()</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1浏览器EventLoop"><span class="nav-number">1.</span> <span class="nav-text">1浏览器EventLoop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1浏览器端异步"><span class="nav-number">1.1.</span> <span class="nav-text">1.1浏览器端异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2浏览器端的EventLoop的基本模型"><span class="nav-number">1.2.</span> <span class="nav-text">1.2浏览器端的EventLoop的基本模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-node的EventLoop"><span class="nav-number">2.</span> <span class="nav-text">2 node的EventLoop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-基本模型"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 基本模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-1-phase"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.1 phase</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-timers"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.2 timers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-poll"><span class="nav-number">2.1.3.</span> <span class="nav-text">2.1.3 poll</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-setTimeout和setImmediate"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 setTimeout和setImmediate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-process-nextTick-和setImmediate"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 process.nextTick()和setImmediate()</span></a></li></ol></li></ol></div>
             
 
           </div>

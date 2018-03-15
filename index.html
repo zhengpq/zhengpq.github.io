@@ -398,8 +398,7 @@
 <p>这就是浏览器端的EventLoop的整个执行过程，这个过程相对来说还是比较简单易懂的。</p>
 <h2 id="2-node的EventLoop"><a href="#2-node的EventLoop" class="headerlink" title="2 node的EventLoop"></a><strong>2 node的EventLoop</strong></h2><h3 id="2-1-基本模型"><a href="#2-1-基本模型" class="headerlink" title="2.1 基本模型"></a><strong>2.1 基本模型</strong></h3><p><img src="http://static.zybuluo.com/Dreamingboy/gtuf7a1w62hphl0gy5hiwdxf/image.png" alt="image.png-75.8kB"></p>
 <p> 我们可以看到，node的EventLoop的模型要比浏览器端的复杂很多，下面让我们来一步步进行讲解。</p>
-<p>####<strong>2.1.1 phase</strong></p>
-<p> 上图中的每一个矩形代表的是事件队列的每一个阶段（官网上叫做“phase”），他们具体负责的工作为（附上官方文档的解释）：</p>
+<h4 id="2-1-1-phase"><a href="#2-1-1-phase" class="headerlink" title="2.1.1 phase"></a><strong>2.1.1 phase</strong></h4><p> 上图中的每一个矩形代表的是事件队列的每一个阶段（官网上叫做“phase”），他们具体负责的工作为（附上官方文档的解释）：</p>
 <ul>
 <li><p>Timers：执行setTimeout()和setInterval()绑定的回调函数</p>
 <blockquote>
@@ -1391,7 +1390,7 @@
             
             
             <div class="site-state-item site-state-tags">
-              <a href="/introduction/index.html">
+              <a href="/personal/index.html">
                 <span class="site-state-item-count">5</span>
                 <span class="site-state-item-name">标签</span>
               </a>
