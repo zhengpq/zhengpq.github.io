@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.2" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="node," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.2" />
+
+
+
+
+
+
+<meta name="description" content="最近在学习node，看了一些关于node的eventLoop的文章之后得出自己的一些结论，跟大家分享一下，如果有错误的地方，也希望大家指出，多多指教！ 说到JavaScript的异步，绕不开的就是EventLoop，这是JavaScript实现异步的基础，而浏览器端的EventLoop和node的又有很大的不同，下面，就让我们来探讨一下他们之间的区别。 1浏览器EventLoop1.1浏览器端异步">
+<meta name="keywords" content="node">
+<meta property="og:type" content="article">
+<meta property="og:title" content="浏览器端的EventLoop和node的EventLoop的区别">
+<meta property="og:url" content="http://yoursite.com/2018/03/15/evenLoop/index.html">
+<meta property="og:site_name" content="zhengpq">
+<meta property="og:description" content="最近在学习node，看了一些关于node的eventLoop的文章之后得出自己的一些结论，跟大家分享一下，如果有错误的地方，也希望大家指出，多多指教！ 说到JavaScript的异步，绕不开的就是EventLoop，这是JavaScript实现异步的基础，而浏览器端的EventLoop和node的又有很大的不同，下面，就让我们来探讨一下他们之间的区别。 1浏览器EventLoop1.1浏览器端异步">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://static.zybuluo.com/Dreamingboy/1p0wef8z0nokuri01mqrz1nm/image.png">
+<meta property="og:image" content="http://static.zybuluo.com/Dreamingboy/gtuf7a1w62hphl0gy5hiwdxf/image.png">
+<meta property="og:updated_time" content="2018-03-15T07:11:06.304Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="浏览器端的EventLoop和node的EventLoop的区别">
+<meta name="twitter:description" content="最近在学习node，看了一些关于node的eventLoop的文章之后得出自己的一些结论，跟大家分享一下，如果有错误的地方，也希望大家指出，多多指教！ 说到JavaScript的异步，绕不开的就是EventLoop，这是JavaScript实现异步的基础，而浏览器端的EventLoop和node的又有很大的不同，下面，就让我们来探讨一下他们之间的区别。 1浏览器EventLoop1.1浏览器端异步">
+<meta name="twitter:image" content="http://static.zybuluo.com/Dreamingboy/1p0wef8z0nokuri01mqrz1nm/image.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.2',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/03/15/evenLoop/"/>
+
+
+
+
+
+  <title>浏览器端的EventLoop和node的EventLoop的区别 | zhengpq</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta custom-logo">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhengpq</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-commonweal">
+          <a href="/404/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-heartbeat"></i> <br />
+            
+            公益404
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/15/evenLoop/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhengpq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhengpq">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">浏览器端的EventLoop和node的EventLoop的区别</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-15T15:09:31+08:00">
+                2018-03-15
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/node/" itemprop="url" rel="index">
+                    <span itemprop="name">node</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近在学习node，看了一些关于node的eventLoop的文章之后得出自己的一些结论，跟大家分享一下，如果有错误的地方，也希望大家指出，多多指教！</p>
+<p>说到JavaScript的异步，绕不开的就是EventLoop，这是JavaScript实现异步的基础，而浏览器端的EventLoop和node的又有很大的不同，下面，就让我们来探讨一下他们之间的区别。</p>
+<h2 id="1浏览器EventLoop"><a href="#1浏览器EventLoop" class="headerlink" title="1浏览器EventLoop"></a><strong>1浏览器EventLoop</strong></h2><h3 id="1-1浏览器端异步"><a href="#1-1浏览器端异步" class="headerlink" title="1.1浏览器端异步"></a><strong>1.1浏览器端异步</strong></h3><p>浏览器端的异步主要包含下面几个方面：</p>
+<ul>
+<li>setTimeout</li>
+<li>setInterval</li>
+<li>事件</li>
+<li>Ajax</li>
+</ul>
+<h3 id="1-2浏览器端的EventLoop的基本模型"><a href="#1-2浏览器端的EventLoop的基本模型" class="headerlink" title="1.2浏览器端的EventLoop的基本模型"></a><strong>1.2浏览器端的EventLoop的基本模型</strong></h3><p><img src="http://static.zybuluo.com/Dreamingboy/1p0wef8z0nokuri01mqrz1nm/image.png" alt="image.png-65.6kB"></p>
+<p>上面的很好的解释了浏览器端的异步是如何实现的，下面先看一个代码片段来理解一下：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">(function() &#123;</div><div class="line"></div><div class="line">  console.log(&apos;this is the start&apos;);</div><div class="line"></div><div class="line">  setTimeout(function cb() &#123;</div><div class="line">    console.log(&apos;this is a msg from call back&apos;);</div><div class="line">  &#125;);</div><div class="line"></div><div class="line">  console.log(&apos;this is just a message&apos;);</div><div class="line"></div><div class="line">  setTimeout(function cb1() &#123;</div><div class="line">    console.log(&apos;this is a msg from call back1&apos;);</div><div class="line">  &#125;, 0);</div><div class="line"></div><div class="line">  console.log(&apos;this is the end&apos;);</div><div class="line"></div><div class="line">&#125;)();</div><div class="line"></div><div class="line">//输出结果</div><div class="line">// &quot;this is the start&quot;</div><div class="line">// &quot;this is just a message&quot;</div><div class="line">// &quot;this is the end&quot;</div><div class="line">// &quot;this is a msg from call back&quot;</div><div class="line">// &quot;this is a msg from call back1&quot;</div></pre></td></tr></table></figure></p>
+<p>我们都知道JavaScript是<strong>单线程</strong>的，但是这个单线程的意思是执行代码是单线程的，这个单线程就是上图的<strong>stack</strong>，所有的同步代码都是在这里执行的。而异步操纵只会在同步操作执行完之后才会开始执行。上面这段代码的执行经历下面这些过程：</p>
+<ol>
+<li>代码从上往下执行，先打印出“this is a msg from call back ”，</li>
+<li>解析到第一个<strong>setTimeout</strong>，而且这个setTimeout没有给出具体的时间参数，那么此时就会默认时间参数是<strong>0</strong>（需要注意的是0不代表立即将setTimeout的回调函数加入到事件队列中，而是由一定的最小时间限制的），在经过最小时间限制后，就会将setTimeout的回调函数加入到事件队列中。</li>
+<li>另外一个同步操作，打印出“this is just a message”</li>
+<li>接下来是另外一个setTimeout的回调函数被加入到事件队列中，最后的同步操作打印出“this is the end”。</li>
+<li>stack按照加入callbackQueue的回调函数的顺序从callbackQueue中拿出回调函数执行，首先是打印”this is a msg from call back”，然后是打印”this is a msg from call back1”</li>
+</ol>
+<p>这就是浏览器端的EventLoop的整个执行过程，这个过程相对来说还是比较简单易懂的。</p>
+<h2 id="2-node的EventLoop"><a href="#2-node的EventLoop" class="headerlink" title="2 node的EventLoop"></a><strong>2 node的EventLoop</strong></h2><h3 id="2-1-基本模型"><a href="#2-1-基本模型" class="headerlink" title="2.1 基本模型"></a><strong>2.1 基本模型</strong></h3><p><img src="http://static.zybuluo.com/Dreamingboy/gtuf7a1w62hphl0gy5hiwdxf/image.png" alt="image.png-75.8kB"></p>
+<p> 我们可以看到，node的EventLoop的模型要比浏览器端的复杂很多，下面让我们来一步步进行讲解。</p>
+<p>####<strong>2.1.1 phase</strong></p>
+<p> 上图中的每一个矩形代表的是事件队列的每一个阶段（官网上叫做“phase”），他们具体负责的工作为（附上官方文档的解释）：</p>
+<ul>
+<li><p>Timers：执行setTimeout()和setInterval()绑定的回调函数</p>
+<blockquote>
+<p>this phase executes callbacks scheduled by setTimeout() and setInterval().</p>
+</blockquote>
+</li>
+<li><p>I/O callback：执行除了close callbacks、timers以及setImmediate()绑定的回调函数</p>
+<blockquote>
+<p>executes almost all callbacks with the exception of close callbacks, the ones scheduled by timers, and setImmediate().</p>
+</blockquote>
+</li>
+<li>idle,prepare：只在内部使用</li>
+<li><p>poll：检索新的I/O 事件，并且这个node在适当的时机在这个地方阻塞（具体应用场景我还想不出来，如果有哪位知道请指教一下）</p>
+<blockquote>
+<p>retrieve new I/O events; node will block here when appropriate.</p>
+</blockquote>
+</li>
+<li><p>check：执行setImmediate()绑定的回调函数</p>
+<blockquote>
+<p>setImmediate() callbacks are invoked here.</p>
+</blockquote>
+</li>
+<li><p>close callbacks：执行关闭事件绑定的回调函数<br>（注意：上面的执行是指将回调函数推到<strong>主线程</strong>执行）</p>
+</li>
+</ul>
+<p>每个phase代表不同的时期，eventLoop每次轮询都会从timers开始将EventLoop里面的回调函数推导主线程中执行，直到执行完这个phase里面的回调函数或者是执行的数量达到允许的最大值（在每个循环周期中允许执行的函数数目是有限的）后才会进入到下一个phase，按照这样的顺序直到这个周期结束后再进入下个周期。当然，这里面还有很多细节，待会会详细讨论。</p>
+<p>这里就可以看出node的EventLoop和浏览器端的EventLoop的很大的不同：<strong>浏览器端没有阶段的区分，只会按照回调函数进入事件队列的顺序进行执行，node则会按照不同类型的回调函数在不同阶段有区别地执行</strong>。</p>
+<h4 id="2-1-2-timers"><a href="#2-1-2-timers" class="headerlink" title="2.1.2 timers"></a><strong>2.1.2 timers</strong></h4><p>setTimeout()和setInterval实际上和浏览器端的作用原理是一样的，在指定的时间后将绑定的回调函数添加到事件队列中，<strong>而且，当事件设置为0时，也不是立即就将回调函数添加到事件队列的timers中</strong>，下面这段是引用官网的说明：</p>
+<blockquote>
+<p>When delay is larger than 2147483647 or less than 1, the delay will be set to 1.</p>
+</blockquote>
+<p>下面看看官网的这个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">const fs = require(&apos;fs&apos;);</div><div class="line"></div><div class="line">function someAsyncOperation(callback) &#123;</div><div class="line">  // Assume this takes 95ms to complete</div><div class="line">  fs.readFile(&apos;/path/to/file&apos;, callback);</div><div class="line">&#125;</div><div class="line"></div><div class="line">const timeoutScheduled = Date.now();</div><div class="line"></div><div class="line">setTimeout(() =&gt; &#123;</div><div class="line">  const delay = Date.now() - timeoutScheduled;</div><div class="line"></div><div class="line">  console.log(`$&#123;delay&#125;ms have passed since I was scheduled`);</div><div class="line">&#125;, 100);</div><div class="line"></div><div class="line"></div><div class="line">// do someAsyncOperation which takes 95 ms to complete</div><div class="line">someAsyncOperation(() =&gt; &#123;</div><div class="line">  const startCallback = Date.now();</div><div class="line"></div><div class="line">  // do something that will take 10ms...</div><div class="line">  while (Date.now() - startCallback &lt; 10) &#123;</div><div class="line">    // do nothing</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>让我们来分析一下上面这段代码的是如何执行的：</p>
+<ol>
+<li>代码从上向下解析，遇到第一个异步操作-setTimeout，于是将在100ms后将setTimeout绑定的函数添加到timers中</li>
+<li>继续向下解析，执行函数<code>someAsyncOperation</code>，函数<code>someAsyncOperation</code>首先读取文件，这个过程花费了95ms</li>
+<li>由于在执行执行同步代码的时候没有回调函数添加到事件队列中，所以在进入<strong>poll</strong>阶段时事件队列还是空的，此时poll会等待到有新的事件被触发。</li>
+<li>在文件读取结束后将其绑定的回调函数添加到事件队列中，poll将回调函数推到主线程里面执行，由于这个函数要执行10ms，在执行到5ms时<code>setTimeout</code>绑定的回调函数会被添加到timers中去</li>
+<li>等到<code>fs.read()</code>绑定的函数执行完毕后poll检测到timers中有绑定的函数，而且check和close callback如果有绑定函数，就会进入下个阶段，由于下两个阶段（check和close callback）都没有绑定函数，那么就会重新回到timers，此时timers中有函数就推进主线程中执行，所以，最后输出的结果是延迟了<strong>105ms</strong></li>
+</ol>
+<p>但是，现在有一个问题，如果<code>fs.read()</code>要执行很长时间，那岂不是导致阻塞了吗？答案是：否；</p>
+<p>先看一下官方文章里面的几个句子：</p>
+<blockquote>
+<p>Note: Technically, the poll phase controls when timers are executed.</p>
+<p>When the event loop enters the poll phase, it has an empty queue (fs.readFile() has not completed), so it will wait for the number of ms remaining until the soonest timer’s threshold is reached. </p>
+<p>Once the poll queue is empty the event loop will check for timers whose time thresholds have been reached. If one or more timers are ready, the event loop will wrap back to the timers phase to execute those timers’ callbacks.</p>
+</blockquote>
+<p>上面第一个句子说明了<strong>timers</strong>其实是受到<strong>poll</strong>影响的，后面两句说明了如果<code>fs.read()</code>执行的时间太长，超过了timers设定的时间，EventLoop会将timers绑定的函数推到主线程中执行（下面讲解poll的时候会解释），这样避免了阻塞问题</p>
+<h4 id="2-1-3-poll"><a href="#2-1-3-poll" class="headerlink" title="2.1.3 poll"></a><strong>2.1.3 poll</strong></h4><p>这个阶段的功能是最复杂的。先看一下官方文档的解释：</p>
+<blockquote>
+<p>The poll phase has two main functions:</p>
+<ul>
+<li>Executing scripts for timers whose threshold has elapsed, </li>
+<li>then Processing events in the poll queue.</li>
+</ul>
+<p>When the event loop enters the poll phase and there are no timers scheduled, one of two things will happen:</p>
+<ul>
+<li>If the poll queue is not empty, the event loop will iterate through its queue of callbacks executing them synchronously until either the queue has been exhausted, or the system-dependent hard limit is reached.</li>
+<li>If the poll queue is empty, one of two more things will happen:</li>
+</ul>
+<ul>
+<li>If scripts have been scheduled by setImmediate(), the event loop will end the poll phase and continue to the check phase to execute those scheduled scripts.</li>
+</ul>
+<ul>
+<li>If scripts have not been scheduled by setImmediate(), the event loop will wait for callbacks to be added to the queue, then execute them immediately.</li>
+</ul>
+<p>Once the poll queue is empty the event loop will check for timers whose time thresholds have been reached. If one or more timers are ready, the event loop will wrap back to the timers phase to execute those timers’ callbacks.</p>
+</blockquote>
+<p>首先，上面的这段话说明了<strong>poll</strong>具有两个功能：</p>
+<ul>
+<li>执行那些时间到达的计时器绑定的函数</li>
+<li>处理轮询队列中的事件</li>
+</ul>
+<p>也就是说通过setTimeout绑定的回调函数有可能会在两个阶段被推到主线程中执行：<strong>timers和poll</strong>（下面会给出例子解释），但是timers绑定的函数能够在poll阶段被执行的条件是：<strong>计时器计时结束</strong>（下面会有例子解释）</p>
+<p>poll的这个阶段回调函数执行还分多种情况：</p>
+<ul>
+<li>当事件队列进入<strong>poll</strong>阶段，同时没有计时器计时结束时，如果<strong>poll</strong>不是空的，那么就先执行poll里面的回调函数。如果poll是空的同时没有<code>setimmedaite</code>绑定的回调函数，那么EventLoop会直接停留在poll阶段，直到有新的回调函数被加入到事件队列中。如果有<code>setImmediate</code>绑定的函数，则会进入到下个阶段check。</li>
+<li>如果事件队列进入到<strong>poll</strong>阶段并且poll是空的，且有计时器计时结束，事件队列会回到timers，然后执行timers绑定的函数</li>
+</ul>
+<p>还是上面那个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">const fs = require(&apos;fs&apos;);</div><div class="line"></div><div class="line">function someAsyncOperation(callback) &#123;</div><div class="line">  // Assume this takes 95ms to complete</div><div class="line">  fs.readFile(&apos;/path/to/file&apos;, callback);</div><div class="line">&#125;</div><div class="line"></div><div class="line">const timeoutScheduled = Date.now();</div><div class="line"></div><div class="line">setTimeout(() =&gt; &#123;</div><div class="line">  const delay = Date.now() - timeoutScheduled;</div><div class="line"></div><div class="line">  console.log(`$&#123;delay&#125;ms have passed since I was scheduled`);</div><div class="line">&#125;, 100);</div><div class="line"></div><div class="line"></div><div class="line">// do someAsyncOperation which takes 95 ms to complete</div><div class="line">someAsyncOperation(() =&gt; &#123;</div><div class="line">  const startCallback = Date.now();</div><div class="line"></div><div class="line">  // do something that will take 10ms...</div><div class="line">  while (Date.now() - startCallback &lt; 10) &#123;</div><div class="line">    // do nothing</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure></p>
+<p>具体的解释可以看上面</p>
+<h3 id="2-2-setTimeout和setImmediate"><a href="#2-2-setTimeout和setImmediate" class="headerlink" title="2.2 setTimeout和setImmediate"></a><strong>2.2 setTimeout和setImmediate</strong></h3><p>两者在很多方面和相似，但是他们的区别还是很大的，而且setTimeout具有的一个缺点是时间的不确定性。先来看看官方给的例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// timeout_vs_immediate.js</div><div class="line">setTimeout(() =&gt; &#123;</div><div class="line">  console.log(&apos;timeout&apos;);</div><div class="line">&#125;, 0);</div><div class="line"></div><div class="line">setImmediate(() =&gt; &#123;</div><div class="line">  console.log(&apos;immediate&apos;);</div><div class="line">&#125;);</div><div class="line">//结果</div><div class="line">$ node timeout_vs_immediate.js</div><div class="line">immediate</div><div class="line">timeout</div><div class="line"></div><div class="line">$ node timeout_vs_immediate.js</div><div class="line">immediate</div><div class="line">timeout</div></pre></td></tr></table></figure></p>
+<p>可以看到可能有两种结果，为什么呢？因为虽然setTimeout的时间设置为0，但是实际上系统会将其设置为1，所以如果上面的同步代码解析到setImmediate时时间小于1ms，那么就会先将setImmediate加入到事件队列中，反之，则会是将setTimeout加入到事件队列中。</p>
+<p>再来看看下面这个例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">// timeout_vs_immediate.js</div><div class="line">const fs = require(&apos;fs&apos;);</div><div class="line"></div><div class="line">fs.readFile(__filename, () =&gt; &#123;</div><div class="line">  setTimeout(() =&gt; &#123;</div><div class="line">    console.log(&apos;timeout&apos;);</div><div class="line">  &#125;, 0);</div><div class="line">  setImmediate(() =&gt; &#123;</div><div class="line">    console.log(&apos;immediate&apos;);</div><div class="line">  &#125;);</div><div class="line">&#125;);</div><div class="line">//</div><div class="line">$ node timeout_vs_immediate.js</div><div class="line">immediate</div><div class="line">timeout</div><div class="line"></div><div class="line">$ node timeout_vs_immediate.js</div><div class="line">immediate</div><div class="line">timeout</div></pre></td></tr></table></figure></p>
+<p>上面这个例子只有一种结果，这是为什么呢？因为首先会进行文件的读取，然后就会将<code>fs.readFile</code>的回调函数加入到事件队列中，文件读取结束后执行回调函数，此时EventLoop还没有到达check这个阶段，文件读取绑定回调函数中分别在timers和check阶段绑定了回调函数，所以EventLoop经过poll阶段后进入check阶段执行<code>setImmediate</code>绑定的函数，然后再绕回timers执行<code>setTimeout</code>绑定的函数，这样就得到上面的结果。</p>
+<h3 id="2-3-process-nextTick-和setImmediate"><a href="#2-3-process-nextTick-和setImmediate" class="headerlink" title="2.3 process.nextTick()和setImmediate()"></a><strong>2.3 process.nextTick()和setImmediate()</strong></h3><p>这两个方法的实际用途和他们的名字相反，前者是当前的同步执行结束后直接执行其绑定的函数，而setImmediate是只在check阶段才执行。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/node/" rel="tag"># node</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/15/asy-md/" rel="next" title="异步">
+                <i class="fa fa-chevron-left"></i> 异步
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          
+            <img class="site-author-image" itemprop="image"
+              src="/images/avatar.jpg"
+              alt="zhengpq" />
+          
+            <p class="site-author-name" itemprop="name">zhengpq</p>
+            <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+            
+              <a href="/archives/">
+            
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">3</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/introduction/index.html">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zhengpq" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-globe"></i></a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://plus.google.com/yourname" target="_blank" title="Google">
+                  
+                    <i class="fa fa-fw fa-google"></i></a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1浏览器EventLoop"><span class="nav-number">1.</span> <span class="nav-text">1浏览器EventLoop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1浏览器端异步"><span class="nav-number">1.1.</span> <span class="nav-text">1.1浏览器端异步</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2浏览器端的EventLoop的基本模型"><span class="nav-number">1.2.</span> <span class="nav-text">1.2浏览器端的EventLoop的基本模型</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-node的EventLoop"><span class="nav-number">2.</span> <span class="nav-text">2 node的EventLoop</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-基本模型"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 基本模型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-2-timers"><span class="nav-number">2.1.1.</span> <span class="nav-text">2.1.2 timers</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-3-poll"><span class="nav-number">2.1.2.</span> <span class="nav-text">2.1.3 poll</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-setTimeout和setImmediate"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 setTimeout和setImmediate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-process-nextTick-和setImmediate"><span class="nav-number">2.3.</span> <span class="nav-text">2.3 process.nextTick()和setImmediate()</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhengpq</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+  <span class="post-meta-divider">|</span>
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.2</div>
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.2"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.2"></script>
+
+
+
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.2"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.2"></script>
+
+
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.2"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
