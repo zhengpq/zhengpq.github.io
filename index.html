@@ -447,7 +447,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2018/03/17/List/" itemprop="url">??</a></h1>
+                <a class="post-title-link" href="/2018/03/17/List/" itemprop="url">列表</a></h1>
         
 
         <div class="post-meta">
@@ -482,8 +482,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/" itemprop="url" rel="index">
-                    <span itemprop="name">???????</span>
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
                   </a>
                 </span>
 
@@ -521,85 +521,86 @@
       
         
           
-            <h2 id=""><a href="#" class="headerlink" title="??"></a>??</h2><h2 id="-1"><a href="#-1" class="headerlink" title="?????????"></a>?????????</h2><table>
+            <h2 id="列表"><a href="#列表" class="headerlink" title="列表"></a>列表</h2><h2 id="列表的抽象数据结构"><a href="#列表的抽象数据结构" class="headerlink" title="列表的抽象数据结构"></a>列表的抽象数据结构</h2><table>
 <thead>
 <tr>
-<th>??????</th>
-<th>??</th>
+<th>方法和属性</th>
+<th>作用</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td>listSize</td>
-<td>????????</td>
+<td>列表元素的个数</td>
 </tr>
 <tr>
 <td>pos</td>
-<td>???????</td>
+<td>列表的当前位置</td>
 </tr>
 <tr>
 <td>clear</td>
-<td>????</td>
+<td>清空列表</td>
 </tr>
 <tr>
 <td>find</td>
-<td>?????????????</td>
+<td>寻找指定的元素</td>
 </tr>
 <tr>
 <td>toString</td>
-<td>??????????</td>
+<td>将列表变成字符串展示出来</td>
 </tr>
 <tr>
 <td>getElement</td>
-<td>?????????</td>
+<td>返回当前位置的元素</td>
 </tr>
 <tr>
 <td>insert</td>
-<td>?????????????</td>
+<td>在现有元素后插入一个新的元素</td>
 </tr>
 <tr>
 <td>append</td>
-<td>????????????</td>
+<td>在列表末尾插入新的元素</td>
 </tr>
 <tr>
 <td>remove</td>
-<td>????????</td>
+<td>移除列表末尾的元素</td>
 </tr>
 <tr>
 <td>front</td>
-<td>????????????????</td>
+<td>将列表的当前位置移动到第一个元素</td>
 </tr>
 <tr>
 <td>end</td>
-<td>???????????????</td>
+<td>将列表的当前位置移动到列表的最后一个</td>
 </tr>
 <tr>
 <td>prev</td>
-<td>?????????</td>
+<td>将当前位置前移一位</td>
 </tr>
 <tr>
 <td>next</td>
-<td>?????????</td>
+<td>将当前位置后移一位</td>
 </tr>
 <tr>
 <td>hasNext</td>
-<td>?????</td>
+<td>判断后一位</td>
 </tr>
 <tr>
 <td>hasPrev</td>
-<td>?????</td>
+<td>判断前一位</td>
 </tr>
 <tr>
 <td>currPos</td>
-<td>?????????</td>
+<td>返回列表当前的位置</td>
 </tr>
 <tr>
 <td>moveTo</td>
-<td>?????????????</td>
+<td>将列表的当前位置移动到指定的位置</td>
 </tr>
 </tbody>
 </table>
-<h2 id="-2"><a href="#-2" class="headerlink" title="???????"></a>???????</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">function List() &#123;</div><div class="line">    this.listSize 0;</div><div class="line">    this.pos = 0;</div><div class="line">    this.dataStore = [];</div><div class="line">&#125;</div><div class="line"></div><div class="line">//????</div><div class="line">List.prototype.clear = function () &#123;</div><div class="line">    delete this.dataStore;</div><div class="line">    this.dataStore=[];</div><div class="line">    this.listSize = this.pos=0;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//?????????????</div><div class="line">List.prototype.append = function (element) &#123;</div><div class="line">    this.dataStore.push(element);</div><div class="line">    ++this.listSize;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//????????????</div><div class="line">List.prototype.find = function (element) &#123;</div><div class="line">    var position=this.dataStore.indexOf(element);</div><div class="line">    return (position!=-1)?position:false;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//??????????</div><div class="line">List.prototype.toString = function () &#123;</div><div class="line">    return Array.prototype.join.call(this.dataStore,&apos;/n&apos;);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//?????????</div><div class="line">List.prototype.getElement = function () &#123;</div><div class="line">    return this.dataStore[this.pos];</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//?????????????</div><div class="line">List.prototype.insert = function (element) &#123;</div><div class="line">    this.dataStore.splice(this.pos+1,0,element);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//????????</div><div class="line">List.prototype.remove = function (element) &#123;</div><div class="line">    var position = this.find(element);</div><div class="line">    this.dataStore.splice(position,1);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//????????????????</div><div class="line">List.prototype.front = function () &#123;</div><div class="line">    this.pos=0;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//?????????????????</div><div class="line">List.prototype.end = function () &#123;</div><div class="line">    this.pos=this.dataStore.length-1;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//?????????</div><div class="line">List.prototype.prev=function () &#123;</div><div class="line">   --this.pos;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//?????????</div><div class="line">List.prototype.next=function () &#123;</div><div class="line">    if (this.pos&lt;this.dataStore.length) &#123;</div><div class="line">        ++this.pos;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//?????????????</div><div class="line">List.prototype.moveTo=function (position) &#123;</div><div class="line">    if (position&lt;this.dataStore.length) &#123;</div><div class="line">        this.pos=position;</div><div class="line">    &#125;else &#123;</div><div class="line">        return &apos;the position is over the datastore\&apos;s length&apos;;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div></pre></td><td class="code"><pre><div class="line">function List() &#123;</div><div class="line">    this.listSize 0;</div><div class="line">    this.pos = 0;</div><div class="line">    this.dataStore = [];</div><div class="line">&#125;</div><div class="line"></div><div class="line">//清空列表</div><div class="line">List.prototype.clear = function () &#123;</div><div class="line">    delete this.dataStore;</div><div class="line">    this.dataStore=[];</div><div class="line">    this.listSize = this.pos=0;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//在列表末尾添加一个新的元素</div><div class="line">List.prototype.append = function (element) &#123;</div><div class="line">    this.dataStore.push(element);</div><div class="line">    ++this.listSize;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//寻找指定的元素</div><div class="line">List.prototype.find = function (element) &#123;</div><div class="line">    var position=this.dataStore.indexOf(element);</div><div class="line">    return (position!=-1)?position:false;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//将列表变成字符串展示出来</div><div class="line">List.prototype.toString = function () &#123;</div><div class="line">    return Array.prototype.join.call(this.dataStore,&apos;/n&apos;);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//返回当前位置的元素</div><div class="line">List.prototype.getElement = function () &#123;</div><div class="line">    return this.dataStore[this.pos];</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//在现有元素后插入一个新的元素</div><div class="line">List.prototype.insert = function (element) &#123;</div><div class="line">    this.dataStore.splice(this.pos+1,0,element);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//从列表中移除元素</div><div class="line">List.prototype.remove = function (element) &#123;</div><div class="line">    var position = this.find(element);</div><div class="line">    this.dataStore.splice(position,1);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//将列表的当前位置移动到第一个元素</div><div class="line">List.prototype.front = function () &#123;</div><div class="line">    this.pos=0;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//将列表的当前位置移动到第一个元素</div><div class="line">List.prototype.end = function () &#123;</div><div class="line">    this.pos=this.dataStore.length-1;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//将当前位置前移一位</div><div class="line">List.prototype.prev=function () &#123;</div><div class="line">   --this.pos;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//将当前位置后移一位</div><div class="line">List.prototype.next=function () &#123;</div><div class="line">    if (this.pos&lt;this.dataStore.length) &#123;</div><div class="line">        ++this.pos;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//将当前位置移动到指定位置</div><div class="line">List.prototype.moveTo=function (position) &#123;</div><div class="line">    if (position&lt;this.dataStore.length) &#123;</div><div class="line">        this.pos=position;</div><div class="line">    &#125;else &#123;</div><div class="line">        return &apos;the position is over the datastore\&apos;s length&apos;;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+
           
         
       
@@ -1744,7 +1745,7 @@
             
             <div class="site-state-item site-state-categories">
               <a href="/categories/index.html">
-                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-count">4</span>
                 <span class="site-state-item-name">分类</span>
               </a>
             </div>
