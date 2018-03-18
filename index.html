@@ -283,6 +283,153 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/18/Sort/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="zhengpq">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="zhengpq">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/03/18/Sort/" itemprop="url">Sort</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-03-18T11:46:39+08:00">
+                2018-03-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/数据结构与算法/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h2 id="常见的排序算法"><a href="#常见的排序算法" class="headerlink" title="常见的排序算法"></a>常见的排序算法</h2><h3 id="创建一个测试数组"><a href="#创建一个测试数组" class="headerlink" title="创建一个测试数组"></a>创建一个测试数组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div></pre></td><td class="code"><pre><div class="line">function TextArray(numElement) &#123;</div><div class="line">    this.dataStore = [];</div><div class="line">    this.pos = 0;</div><div class="line">    this.numElements = numElement;</div><div class="line">    this.gaps= null;</div><div class="line">    for (var i = 0; i &lt; this.numElements; i++) &#123;</div><div class="line">        this.dataStore[i] = i;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">//设置数据</div><div class="line"></div><div class="line">TextArray.prototype.setData = function () &#123;</div><div class="line">    for (var i = 0; i &lt; this.numElements; i++) &#123;</div><div class="line">        this.dataStore[i] = Math.floor(Math.random()*(this.numElements+1));</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//清空数据</div><div class="line"></div><div class="line">TextArray.prototype.clear = function () &#123;</div><div class="line">    for (var i = 0; i &lt; this.dataStore.length; i++) &#123;</div><div class="line">        this.dataStore[i] = 0;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//插入数据</div><div class="line"></div><div class="line">TextArray.prototype.insert = function (element) &#123;</div><div class="line">    this.dataStore[this.pos++] = element;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">//数据以字符串的形式展示</div><div class="line"></div><div class="line">TextArray.prototype.toString = function () &#123;</div><div class="line">    var restr = &apos;&apos;;</div><div class="line">    for (var i = 0; i &lt; this.dataStore.length; i++) &#123;</div><div class="line">        restr += this.dataStore[i].toString()+&apos; &apos;;</div><div class="line">    &#125;</div><div class="line">    return restr;</div><div class="line">&#125;;</div><div class="line"></div><div class="line">var textArray = new TextArray(10);</div><div class="line">textArray.setData();</div><div class="line">console.log(textArray.toString());</div></pre></td></tr></table></figure>
+<h3 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">TextArray.prototype.bubbleSort = function () &#123;</div><div class="line">    var temp;</div><div class="line">    for (var i = 0; i &lt; this.dataStore.length; i++) &#123;</div><div class="line">        for (var j = 0; j &lt;this.dataStore.length-1 ; j++) &#123;</div><div class="line">            if (this.dataStore[j]&gt;this.dataStore[j+1]) &#123;</div><div class="line">                temp = this.dataStore[j];</div><div class="line">                this.dataStore[j] = this.dataStore[j+1];</div><div class="line">                this.dataStore[j+1] = temp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">TextArray.prototype.selectSort = function () &#123;</div><div class="line">    var temp,current;</div><div class="line">    for (var i = 0; i &lt; this.dataStore.length-1; i++) &#123;</div><div class="line">        for (var j = i+1; j &lt;this.dataStore.length ; j++) &#123;</div><div class="line">            if (this.dataStore[i]&gt;this.dataStore[j]) &#123;</div><div class="line">                temp = this.dataStore[i];</div><div class="line">                this.dataStore[i] = this.dataStore[j];</div><div class="line">                this.dataStore[j] = temp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">TextArray.prototype.insertSort = function () &#123;</div><div class="line">    var tepm,inner;</div><div class="line">    for (var i = 1; i &lt; this.dataStore.length; i++) &#123;</div><div class="line">        tepm = this.dataStore[i];</div><div class="line">        inner = i;</div><div class="line">        while (inner&gt;0&amp;&amp;(this.dataStore[inner-1]&gt;=tepm))&#123;</div><div class="line">            this.dataStore[inner] = this.dataStore[inner-1];</div><div class="line">            --inner;</div><div class="line">        &#125;</div><div class="line">        this.dataStore[inner] = tepm;</div><div class="line">    &#125;</div><div class="line"> &#125;;</div></pre></td></tr></table></figure>
+<h3 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">TextArray.prototype.shellSort = function (arr) &#123;</div><div class="line">    this.gaps =arr;</div><div class="line">    for (var g = 0; g &lt; this.gaps.length; g++) &#123;</div><div class="line">        for (var i = 0; i &lt; this.dataStore.length; i++) &#123;</div><div class="line">            var temp = this.dataStore[i];</div><div class="line">            for (var j = i; j&gt;=this.gaps[g]&amp;&amp;this.dataStore[j-this.gaps[g]]&gt;temp; j-=this.gaps[g]) &#123;</div><div class="line">                this.dataStore[j]=this.dataStore[j-this.gaps[g]];</div><div class="line">            &#125;</div><div class="line">            this.dataStore[j] = temp;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<h3 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">TextArray.prototype.quickSort = function (list) &#123;</div><div class="line">    if (list.length ==0) &#123;</div><div class="line">        return;</div><div class="line">    &#125;else &#123;</div><div class="line">        let lessList=[];</div><div class="line">        let greaterList=[];</div><div class="line">        let pivot=list[0];</div><div class="line">        for (let i = 1; i &lt; list.length; i++) &#123;</div><div class="line">            if (list[i]&gt;pivot) &#123;</div><div class="line">                lessList.push(list[i]);</div><div class="line">            &#125;else &#123;</div><div class="line">                greaterList.push(list[i]);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    return TextArray.quickSort(lessList).concat(pivot,TextArray.quickSort(greaterList));</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/03/17/linkList/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1734,7 +1881,7 @@
             
               <a href="/archives/">
             
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -1756,7 +1903,7 @@
             
             <div class="site-state-item site-state-tags">
               <a href="/introduction/index.html">
-                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-count">8</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
